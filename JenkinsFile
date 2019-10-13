@@ -3,41 +3,45 @@ pipeline {
 	stages {
 		stage('Checkout') {
 			steps {
-			echo 'Checkout'
+				echo 'Checkout'
 			}
 		}
 		stage('Build') {
 			steps {
-			echo 'Clean Build'
-			bat 'mvn clean compile'
+				echo 'Clean Build'
+				bat 'mvn clean compile'
 			}
 		}
 		stage('Test') {
 			steps {
-			echo 'Testing'
-			bat 'mvn test'
+				echo 'Testing'
+				bat 'mvn test'
 			}
 		}
 		stage('JaCoco') {
 			steps {
-			echo 'Code Coverage'
-			jacoco()
+				echo 'Code Coverage'
+				jacoco()
 			}
 		}
 		stage('Sonar') {
 			steps {
-			echo 'Sonar Coverage'
-			def scannerHome = tool 'SonarQube Server'
-			withSonarQubeEnv('SonarQube Server') {
-				bat '${scannerHome}/bin/sonar-scanner'
+				echo 'Sonar Scanner'
+				def scannerHome = tool 'SonarQube Scanner'
+				withSonarQubeEnv('SonarQube Server') {
+					bat '${scannerHome}/bin/sonar-scanner'
 				}
 			}
 		}
 		stage('Package') {
 			steps {
-			echo 'Packaging'
-			bat 'mvn package -DskipTests'
+				echo 'Packaging'
+				bat 'mvn package -DskipTests'
 		}
-	}
- }
+		stage('Deploy') {
+			steps {
+				echo 'Todo Deployment'
+			}
+		}
+ 	}
 }
