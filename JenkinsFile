@@ -27,10 +27,9 @@ pipeline {
 		stage('Sonar') {
 			steps {
 			echo 'Sonar Coverage'
-			def scannerHome = tool 'SonarQube Server' {
+			def scannerHome = tool 'SonarQube Server'
 			withSonarQubeEnv('SonarQube Server') {
 				bat '${scannerHome}/bin/sonar-scanner'
-					}
 				}
 			}
 		}
