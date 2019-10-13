@@ -37,12 +37,12 @@ pipeline {
 			steps {
 				echo 'Packaging'
 				bat 'mvn package -DskipTests'
+			}
 		}
 		stage('Deploy') {
 			steps {
-				echo 'Todo Deployment'
+				echo 'To do Deployment'
 			}
 		}
-	}
- }
+ 	}
 }
