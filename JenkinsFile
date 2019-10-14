@@ -24,13 +24,13 @@ pipeline {
                 jacoco()
             }
         }
-        stage('Sonar') {
+        stage("build & SonarQube analysis") {
+            agent any
             steps {
-                echo 'Sonar Scanner'
-               	//def scannerHome = tool 'SonarQube Scanner'
-			    withSonarQubeEnv('SonarQube Server') {
-			    	bat 'C:/apps/sonar7/sonarqube-7.0/bin/sonar-scanner'
-			    }
+              echo 'Sonar Scanner'
+              withSonarQubeEnv('SonarQube Server') {
+                bat 'mvn clean package sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=7d1ceeed3edc992178cc487d2164d8c4a1c78d5b
+              }
             }
         }
         stage('Package') {
