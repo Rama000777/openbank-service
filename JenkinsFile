@@ -29,7 +29,7 @@ pipeline {
             steps {
               echo 'Sonar Scanner'
               withSonarQubeEnv('SonarQube Server') {
-                bat 'mvn clean package sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=7d1ceeed3edc992178cc487d2164d8c4a1c78d5b
+                bat 'mvn clean package sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=7d1ceeed3edc992178cc487d2164d8c4a1c78d5b'
               }
             }
         }
