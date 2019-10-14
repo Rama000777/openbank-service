@@ -6,42 +6,14 @@ pipeline {
                 echo 'Checkout'
             }
         }
-        stage('Build') {
-            steps {
-                echo 'Clean Build'
-                sh 'mvn clean compile'
-            }
-        }
         stage('Test') {
             steps {
-                echo 'Testing'
                 sh 'mvn test'
             }
-        }
-        stage('JaCoCo') {
-            steps {
-                echo 'Code Coverage'
-                jacoco()
-            }
-        }
-        stage("build & SonarQube analysis") {
-            agent any
-            steps {
-              echo 'Sonar Scanner'
-              withSonarQubeEnv('SonarQube Server') {
-                sh 'mvn clean package sonar:sonar -Dsonar.host.url=http://13.234.117.3:9000 -Dsonar.login=95f4eea512595eef178493adc9dbfc4221c7d6ce'
-              }
-            }
-        }
-        stage('Package') {
-            steps {
-                echo 'Packaging'
-                sh 'mvn package -DskipTests'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo '## TODO DEPLOYMENT ##'
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
             }
         }
     }
