@@ -1,38 +1,10 @@
 pipeline {
     agent any
-    stages {
-        stage('Checkout') {
+        stages {
+        stage('build') {
             steps {
-                echo 'Checkout'
+                sh 'mvn --version'
             }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
-        }
-    }
-    
-    post {
-        always {
-            echo 'JENKINS PIPELINE'
-        }
-        success {
-            echo 'JENKINS PIPELINE SUCCESSFUL'
-        }
-        failure {
-            echo 'JENKINS PIPELINE FAILED'
-        }
-        unstable {
-            echo 'JENKINS PIPELINE WAS MARKED AS UNSTABLE'
-        }
-        changed {
-            echo 'JENKINS PIPELINE STATUS HAS CHANGED SINCE LAST EXECUTION'
         }
     }
 }
