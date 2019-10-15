@@ -15,6 +15,9 @@ public class UserService implements IUserService {
 
 	@Autowired
 	IUserRepository userRepository;
+	
+	@Autowired
+	CryptWithMD5 cryptWithMD5;
 
 	@Override
 	public User createUser(UserDto user) {
@@ -24,7 +27,7 @@ public class UserService implements IUserService {
 		usertoSave.setFirstName(user.getFirstName());
 		usertoSave.setId(registeredUser.getUserId());
 		usertoSave.setLastName(user.getLastName());
-		usertoSave.setPassword(user.getPassword());
+		usertoSave.setPassword(cryptWithMD5.cryptWithMD5(user.getPassword()));
 		userRepository.save(usertoSave);
 		return registeredUser;
 	}
